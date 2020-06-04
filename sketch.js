@@ -1,13 +1,15 @@
-let proyects = ['js-snake', 'js-sierpinski_polygon', 'js-curves_foto_editing', 'js-flappy_dot', 'js-fountain_drawing']//, 'js-maze_drawer'];
-let names = ['Snake', 'Sierpinski polygon', 'Curves photo editing', 'Flappy dot', 'Fountain drawing']//, 'Maze drawer'];
+let proyects = ['js-snake', 'js-sierpinski_polygon', 'js-curves_foto_editing', 'js-flappy_dot', 'js-fountain_drawing', 'js-maze_drawer', 'js-recursive_tree_drawing', 'js-rolling_circles', 'js-symmetric_drawings'];
+let names = ['Snake', 'Sierpinski polygon', 'Curves photo editing', 'Flappy dot', 'Fountain drawing', 'Maze drawer', 'Recursive tree drawing', 'Rolling circles', 'Symmetric drawings'];
 let imgs = [];
-let titleSize = 72, border=3, namesSize=30, hlScale=1.2;
-let scrolled = 0, wheelSensitivity = 1/20, maxScroll = Infinity;
+let titleSize = 72, border=3, namesSize=30;
+let scrolled = 0, wheelSensitivity = 1/5, maxScroll = Infinity;
 
 function preload() {
 	for(let p of proyects) {
-		let img = loadImage('https://raw.githubusercontent.com/pabloqb2000/' + p + '/gh-pages/imgs/screenshot01.png',
-		 (img) => img.resize(windowWidth/3,0))
+		let name = 'https://raw.githubusercontent.com/pabloqb2000/' + p + '/'+ (p=="js-recursive_tree_drawing" ? 'master' : 'gh-pages') +'/imgs/screenshot01.png';
+		let img = loadImage(name,
+			 (img) => img.resize(windowWidth/3,0), 
+			 () => console.log(name));
 		imgs.push(img);
 	}
 }
