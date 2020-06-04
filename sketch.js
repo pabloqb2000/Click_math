@@ -1,46 +1,98 @@
-let sld, btn, tggl, cPicker, optBox;
-let circle, rectangle;
+let proyects = ['js-snake', 'js-sierpinski_polygon', 'js-curves_foto_editing', 'js-flappy_dot', 'js-fountain_drawing']//, 'js-maze_drawer'];
+let names = ['Snake', 'Sierpinski polygon', 'Curves photo editing', 'Flappy dot', 'Fountain drawing']//, 'Maze drawer'];
+let imgs = [];
+let titleSize = 72, border=3, namesSize=30, hlScale=1.2;
+let scrolled = 0, wheelSensitivity = 1/20, maxScroll = Infinity;
+
+function preload() {
+	for(let p of proyects) {
+		let img = loadImage('https://raw.githubusercontent.com/pabloqb2000/' + p + '/gh-pages/imgs/screenshot01.png',
+		 (img) => img.resize(windowWidth/3,0))
+		imgs.push(img);
+	}
+}
 
 function setup() {
 	createCanvas(windowWidth, windowHeight+5);
 	background(32);
-
-	// Create UI elements
-	sld = new Slider(start=0, end=255, value=32, 0, 0, width/12, height/60, null, "Background");
-	btn = new Button(x=0, y=0, width/12, height/30, "Reset", resetValue);
-	
-	tggl = new ToggleButton(0,0,width/12,height/30,"Discrete", discretice);
-	cPicker = new ColorPicker(0,0, width/12, height/30, null, "Color 1");
-
-	optBox = new OptionsBox(["Option1", "Option2", "Option3"], 20, () => console.log("Option changed"));
-
-	// Add two draggable elements
-	circle = new DragCircle(createVector(width/2 + 40, height/2 + 40), 20);
-	rectangle = new DragRect(createVector(width/2 - 40, height/2 - 40), 40, 40);
-
-	// Start UI
-	UI.tableWidth = 1;
-	UI.tableHeight = 100;
-	UI.distrubute();
 }
 
 function draw() {
-	// Draw UI and draggable elements
-	background(sld.value);
-	UI.update();
-	UI.draw();
-	Drag.update();
-	Drag.draw();
+	background(32);
 
-	
-	translate(13/24*width, height/2);
-	scale(1,-1);
+	translate(width/2, -scrolled);
+
+	// Draw title
+	noStroke();
+	textStyle(BOLD);
+	textSize(titleSize);
+	textAlign(LEFT);
+	let w = textWidth("Click math")/2;
+	fill(227, 103, 86);
+	text("Click", -w, titleSize*1.5);
+	fill(86, 210, 227);
+	text("math", -w + textWidth("Click "), titleSize*1.5);
+
+	// Draw images
+	translate(-width/2, 0);
+	noStroke();
+	textStyle(NORMAL);
+	textSize(namesSize);
+	textAlign(CENTER);
+	let h = titleSize*3;
+	let maxH = 0;
+	for(let i = 0; i < imgs.length; i++) {
+		if(i%2==0) {
+			if(i != imgs.length-1) {
+				maxH = max(imgs[i].height, imgs[i+1].height);
+			} else {
+				maxH = imgs[i].height;
+			}
+
+			if(mouseX > width/9 && mouseX < width/9 + imgs[i].width && mouseY + scrolled > h && mouseY + scrolled < h + maxH){
+				fill(230);
+				b = border + 2;
+				textSize(namesSize*1.2);
+				if(mouseIsPressed) {
+					clicked(i);
+				}
+			} else {
+				fill(200);
+				b = border;
+				textSize(namesSize);
+			}
+
+			rect(width/9 - b, h + (maxH - imgs[i].height)/2 - b, imgs[i].width + b*2, imgs[i].height + b*2, b);
+			image(imgs[i], width/9, h + (maxH - imgs[i].height)/2);
+			text(names[i], width/9 - b + imgs[i].width/2, h + maxH + namesSize*1.5);
+
+			if(i == imgs.length-1)
+				h += maxH + namesSize*5;
+		} else {
+			if(mouseX > width*11/18 && mouseX < width*11/18 + imgs[i].width && mouseY + scrolled > h && mouseY + scrolled < h + maxH){
+				fill(230);
+				b = border + 2;
+				textSize(namesSize*1.2);
+				if(mouseIsPressed) {
+					clicked(i);
+				}
+			} else {
+				fill(200);
+				b = border;
+				textSize(namesSize);
+			}
+
+			rect(width*11/18 - b, h + (maxH - imgs[i].height)/2 - b, imgs[i].width + b*2, imgs[i].height + b*2, b);
+			image(imgs[i], width*11/18, h + (maxH - imgs[i].height)/2);
+			text(names[i], width*11/18 - b + imgs[i].width/2, h + maxH + namesSize*1.2);
+
+			h += maxH + namesSize*5;
+		}
+	}
+
+	maxScroll = h - height;
 }
 
-function resetValue() {
-	sld.value = 32;
-}
-
-function discretice() {
-	sld.step = (sld.step == null ? 20 : null);
+function clicked(i) {
+	window.location.href = 'https://pabloqb2000.github.io/' + proyects[i] + '/';
 }
