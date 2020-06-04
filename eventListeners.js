@@ -3,20 +3,22 @@
 //	Drag.mouseDragged();
 //}
 
-//function mousePressed() {
-//	UI.mousePressed();
-//	Drag.mousePressed();
-//}
+function mousePressed() {
+	//UI.mousePressed();
+	//Drag.mousePressed();
+	dragging = mouseX > width - circleR*2 && mouseY > circleR && mouseY < height - 2*circleR;
+}
 
 //function mouseClicked() {
 //    UI.mouseClicked();
 //	Drag.mouseClicked();
 //}
 
-//function mouseReleased() {
-//    UI.mouseReleased();
-//	Drag.mouseReleased();
-//}
+function mouseReleased() {
+    //UI.mouseReleased();
+	//Drag.mouseReleased();
+	dragging = false;
+}
 
 function mouseWheel(event) {
 	//UI.mouseWheel(event);

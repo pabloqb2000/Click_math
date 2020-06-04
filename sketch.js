@@ -2,7 +2,8 @@ let proyects = ['js-snake', 'js-sierpinski_polygon', 'js-curves_foto_editing', '
 let names = ['Snake', 'Sierpinski polygon', 'Curves photo editing', 'Flappy dot', 'Fountain drawing', 'Maze drawer', 'Recursive tree drawing', 'Rolling circles', 'Symmetric drawings'];
 let imgs = [];
 let titleSize = 72, border=3, namesSize=30;
-let scrolled = 0, wheelSensitivity = 1/5, maxScroll = Infinity;
+let scrolled = 0, wheelSensitivity = 1/5, maxScroll = Infinity, circleR=8;
+let dragging = false;
 
 function preload() {
 	for(let p of proyects) {
@@ -21,6 +22,13 @@ function setup() {
 
 function draw() {
 	background(32);
+
+	fill(dragging ? 230 : 200);
+	ellipse(width - circleR, scrolled/maxScroll*(height - 3*circleR) + circleR, circleR, circleR);
+	if(dragging) {
+		scrolled = lerp(scrolled, (mouseY-circleR)/(height - 2*circleR)*maxScroll, 0.1);
+		scrolled = min(maxScroll, max(0, scrolled))
+	}
 
 	translate(width/2, -scrolled);
 
@@ -55,7 +63,7 @@ function draw() {
 				fill(230);
 				b = border + 2;
 				textSize(namesSize*1.2);
-				if(mouseIsPressed) {
+				if(mouseIsPressed && !dragging) {
 					clicked(i);
 				}
 			} else {
@@ -75,7 +83,7 @@ function draw() {
 				fill(230);
 				b = border + 2;
 				textSize(namesSize*1.2);
-				if(mouseIsPressed) {
+				if(mouseIsPressed && !dragging) {
 					clicked(i);
 				}
 			} else {
@@ -91,8 +99,14 @@ function draw() {
 			h += maxH + namesSize*5;
 		}
 	}
+	
+	textSize(namesSize/2);
+	fill(227, 226, 86);
+	text("All code is available on GitHub", width/2, h);
+	fill(105, 227, 86);
+	text("Search for user Pabloqb2000", width/2, h+namesSize/2+10);
 
-	maxScroll = h - height;
+	maxScroll = h - height + namesSize + 30;
 }
 
 function clicked(i) {
