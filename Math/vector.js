@@ -30,21 +30,21 @@ class Vector {
      * Returns the x coordinate of this vector
      */
     getX() {
-        this.n >= 1 ? this.get(0) : 0;
+        return this.n >= 1 ? this.get(0) : 0;
     }
 
     /**
      * Returns the y coordinate of this vector
      */
     getY() {
-        this.n >= 2 ? this.get(1) : 0;
+        return this.n >= 2 ? this.get(1) : 0;
     }
 
     /**
      * Returns the z coordinate of this vector
      */
     getZ() {
-        this.n >= 3 ? this.get(2) : 0;
+        return this.n >= 3 ? this.get(2) : 0;
     }
 
     /**
@@ -275,6 +275,7 @@ class Vector {
         let v = this.copy();
         this.data[0] = cos(angle)*v.get(0) - sin(angle)*v.get(1);
         this.data[1] = sin(angle)*v.get(0) + cos(angle)*v.get(1);
+        return this;
     }
 
     /**
@@ -286,7 +287,7 @@ class Vector {
      * @param len 
      */
     static fromAngle(angle, len=1) {
-        return new Vector([sin(angle)*len, cos(angle)*l]);
+        return new Vector([sin(angle)*len, cos(angle)*len]);
     }
 
     /**

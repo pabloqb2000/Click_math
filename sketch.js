@@ -4,6 +4,7 @@ let imgs = [];
 let titleSize = 72, border=3, namesSize=30;
 let scrolled = 0, wheelSensitivity = 1/5, maxScroll = Infinity, circleR=8;
 let dragging = false;
+let simulation = null, obstacles = [], nBoids = 150;
 
 function preload() {
 	for(let p of proyects) {
@@ -16,7 +17,7 @@ function preload() {
 }
 
 function setup() {
-	createCanvas(windowWidth, windowHeight+5);
+	createCanvas(windowWidth, windowHeight);
 	background(32);
 }
 
@@ -30,21 +31,26 @@ function draw() {
 		scrolled = min(maxScroll, max(0, scrolled))
 	}
 
-	translate(width/2, -scrolled);
+	translate(0, -scrolled);
+
+	// Draw simulation
+	if(simulation != null) {
+		simulation.update();
+		simulation.draw();
+	}
 
 	// Draw title
 	noStroke();
 	textStyle(BOLD);
 	textSize(titleSize);
 	textAlign(LEFT);
-	let w = textWidth("Click math")/2;
+	let w = textWidth("Click math")/2 - width/2;
 	fill(227, 103, 86);
 	text("Click", -w, titleSize*1.5);
 	fill(86, 210, 227);
 	text("math", -w + textWidth("Click "), titleSize*1.5);
 
 	// Draw images
-	translate(-width/2, 0);
 	noStroke();
 	textStyle(NORMAL);
 	textSize(namesSize);
@@ -76,6 +82,9 @@ function draw() {
 			image(imgs[i], width/9, h + (maxH - imgs[i].height)/2);
 			text(names[i], width/9 - b + imgs[i].width/2, h + maxH + namesSize*1.5);
 
+			if(simulation == null)
+				obstacles.push(new RectObst(width/9, h + (maxH - imgs[i].height)/2, imgs[i].width, imgs[i].height));
+
 			if(i == imgs.length-1)
 				h += maxH + namesSize*5;
 		} else {
@@ -95,6 +104,9 @@ function draw() {
 			rect(width*11/18 - b, h + (maxH - imgs[i].height)/2 - b, imgs[i].width + b*2, imgs[i].height + b*2, b);
 			image(imgs[i], width*11/18, h + (maxH - imgs[i].height)/2);
 			text(names[i], width*11/18 - b + imgs[i].width/2, h + maxH + namesSize*1.2);
+			
+			if(simulation == null)
+				obstacles.push(new RectObst(width*11/18, h + (maxH - imgs[i].height)/2, imgs[i].width, imgs[i].height));
 
 			h += maxH + namesSize*5;
 		}
@@ -107,6 +119,8 @@ function draw() {
 	text("Search for user Pabloqb2000", width/2, h+namesSize/2+10);
 
 	maxScroll = h - height + namesSize + 30;
+
+	if(simulation == null) simulation = new BoidSimulation(nBoids, width, h + namesSize + 30, obstacles);
 }
 
 function clicked(i) {
