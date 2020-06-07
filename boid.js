@@ -94,7 +94,7 @@ class Boid {
         pt.sub(this.pos).rotate(3*PI/4).setNorm(l).add(this.pos);
         vertex(pt.getX(), pt.getY());
 
-        vertex(this.pos.getX(), this.pos.getY());
+        //vertex(this.pos.getX(), this.pos.getY());
 
         pt.sub(this.pos).rotate(PI/2).add(this.pos);
         vertex(pt.getX(), pt.getY());
