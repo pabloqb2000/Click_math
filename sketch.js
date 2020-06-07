@@ -1,12 +1,18 @@
 let proyects = ['js-snake', 'js-sierpinski_polygon', 'js-curves_foto_editing', 'js-flappy_dot', 'js-fountain_drawing', 'js-maze_drawer', 'js-recursive_tree_drawing', 'js-rolling_circles', 'js-symmetric_drawings', 'js-olympic_particles', 'js-boid_simulation', 'js-fireworks'];
 let names = ['Snake', 'Sierpinski polygon', 'Curves photo editing', 'Flappy dot', 'Fountain drawing', 'Maze drawer', 'Recursive tree drawing', 'Rolling circles', 'Symmetric drawings', 'Olympic particles', 'Boid simulation', 'Fireworks'];
-let imgs = [];
+let imgs = [], logo;
 let titleSize = 72, border=3, namesSize=30;
 let scrolled = 0, wheelSensitivity = 1/5, maxScroll = Infinity, circleR=8;
 let dragging = false;
 let simulation = null, obstacles = [], nBoids = 150;
 
 function preload() {
+	// Load logo
+	logo = loadImage('https://raw.githubusercontent.com/pabloqb2000/Click_math/gh-pages/imgs/logo_small.png',
+			 (logo) => logo.resize(windowWidth/2,0),
+			 () => logo = null);
+
+	// Load imgs
 	for(let p of proyects) {
 		let name = 'https://raw.githubusercontent.com/pabloqb2000/' + p + '/'+ (p=="js-recursive_tree_drawing" ? 'master' : 'gh-pages') +'/imgs/screenshot01.png';
 		let img = loadImage(name,
@@ -14,6 +20,7 @@ function preload() {
 			 () => console.log(name));
 		imgs.push(img);
 	}
+
 }
 
 function setup() {
@@ -40,15 +47,20 @@ function draw() {
 	}
 
 	// Draw title
-	noStroke();
-	textStyle(BOLD);
-	textSize(titleSize);
-	textAlign(LEFT);
-	let w = textWidth("Click math")/2 - width/2;
-	fill(227, 103, 86);
-	text("Click", -w, titleSize*1.5);
-	fill(86, 210, 227);
-	text("math", -w + textWidth("Click "), titleSize*1.5);
+	if(logo == null) {
+		noStroke();
+		textStyle(BOLD);
+		textSize(titleSize);
+		textAlign(LEFT);
+		let w = textWidth("Click math")/2 - width/2;
+		fill(227, 103, 86);
+		text("Click", -w, titleSize*1.5);
+		fill(86, 210, 227);
+		text("math", -w + textWidth("Click "), titleSize*1.5);
+	} else {
+		image(logo, width/2 - logo.width/2, 0);
+		titleSize = 1.2*logo.height/3;
+	}
 
 	// Draw images
 	noStroke();

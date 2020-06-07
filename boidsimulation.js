@@ -21,7 +21,7 @@ class BoidSimulation {
 
         // Add obstables
         this.obstacles = [
-            new WallObst(0, titleSize*2),
+            new WallObst(0, titleSize*3/1.2),
             new WallObst(1, w),
             new WallObst(2, h),
             new WallObst(3, 0),
