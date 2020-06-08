@@ -54,13 +54,13 @@ class Slider extends UiElement{
         
         // Draw the text
         textAlign(LEFT);
-        textSize(this.height);
+        textSize(this.height*1.4);
         text(this.text, this.x + this.width + 10, this.y + this.height*0.75);
 
         // Draw the value
         if(this.showVal){
             textAlign(CENTER);
-            textSize(this.height);
+            textSize(this.height*1.4);
             text(this.value.toFixed(this.decimals).toString(), this.x + this.width*this.percent(), this.y + this.height*2);
         }    
     }
@@ -70,7 +70,7 @@ class Slider extends UiElement{
      * @return The width considering the text
      */
     getWidth() {
-        textSize(this.height);
+        textSize(this.height*1.4);
         return this.width + textWidth(this.text) + 10;
     }
 

@@ -67,7 +67,7 @@ class ColorPicker extends UiElement {
         rect(this.x, this.y, this.width, this.height, this.height/9);
         // Draw the text
         textAlign(CENTER);
-        textSize(this.height/2);
+        textSize(this.height/1.6);
         text(this.text, this.x + this.width/2, this.y - this.height/6);
 
         fill(this.getColor());
