@@ -24,6 +24,7 @@ function preload() {
 }
 
 function setup() {
+	textFont('Sarpanch');
 	createCanvas(windowWidth, windowHeight);
 	background(32);
 }
