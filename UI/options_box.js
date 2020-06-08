@@ -8,7 +8,7 @@ class OptionsBox extends UiElement{
      * @param y Y position of the box
      */
     constructor(options, height=20, onChange=null, x=0,y=0) {
-        textSize(height*0.4);
+        textSize(height*0.6);
         let width = max(options.map(o => textWidth(o)));
         super(x, y, width + height, height, false, true, true, true);
 
