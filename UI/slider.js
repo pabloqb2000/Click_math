@@ -60,7 +60,7 @@ class Slider extends UiElement{
         // Draw the value
         if(this.showVal){
             textAlign(CENTER);
-            textSize(this.height*1.4);
+            textSize(this.height*1.2);
             text(this.value.toFixed(this.decimals).toString(), this.x + this.width*this.percent(), this.y + this.height*2);
         }    
     }
