@@ -2,7 +2,7 @@ let proyects = ['js-snake', 'js-sierpinski_polygon', 'js-curves_foto_editing', '
 let names = ['Snake', 'Sierpinski polygon', 'Curves photo editing', 'Flappy dot', 'Fountain drawing', 'Maze drawer', 'Recursive tree drawing', 'Rolling circles', 'Symmetric drawings', 'Olympic particles', 'Boid simulation', 'Fireworks', 'Function plotting', 'Taylor visualization'];
 let imgs = [], logo;
 let titleSize = 72, border=3, namesSize=30;
-let scrolled = 0, wheelSensitivity = 1/5, maxScroll = Infinity, circleR=8;
+let scrolled = 0, wheelSensitivity = 1/2, maxScroll = Infinity, circleR=8;
 let dragging = false;
 let simulation = null, obstacles = [], nBoids = 150;
 
