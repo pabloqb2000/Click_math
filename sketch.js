@@ -1,5 +1,5 @@
-let proyects = ['js-snake', 'js-sierpinski_polygon', 'js-curves_foto_editing', 'js-flappy_dot', 'js-fountain_drawing', 'js-maze_drawer', 'js-recursive_tree_drawing', 'js-rolling_circles', 'js-symmetric_drawings', 'js-olympic_particles', 'js-boid_simulation', 'js-fireworks', 'js-function_plotting', 'js-taylor_visualization'];
-let names = ['Snake', 'Sierpinski polygon', 'Curves photo editing', 'Flappy dot', 'Fountain drawing', 'Maze drawer', 'Recursive tree drawing', 'Rolling circles', 'Symmetric drawings', 'Olympic particles', 'Boid simulation', 'Fireworks', 'Function plotting', 'Taylor visualization'];
+let proyects = ['js-snake', 'js-sierpinski_polygon', 'js-curves_foto_editing', 'js-flappy_dot', 'js-fountain_drawing', 'js-maze_drawer', 'js-recursive_tree_drawing', 'js-rolling_circles', 'js-symmetric_drawings', 'js-olympic_particles', 'js-boid_simulation', 'js-fireworks', 'js-function_plotting', 'js-taylor_visualization', 'js-fourier_visualization'];
+let names = ['Snake', 'Sierpinski polygon', 'Curves photo editing', 'Flappy dot', 'Fountain drawing', 'Maze drawer', 'Recursive tree drawing', 'Rolling circles', 'Symmetric drawings', 'Olympic particles', 'Boid simulation', 'Fireworks', 'Function plotting', 'Taylor visualization', 'Fourier visualization'];
 let imgs = [], logo;
 let titleSize = 72, border=3, namesSize=30;
 let scrolled = 0, wheelSensitivity = 1/2, maxScroll = Infinity, circleR=8;
