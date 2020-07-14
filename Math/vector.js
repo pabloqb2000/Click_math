@@ -48,6 +48,13 @@ class Vector {
     }
 
     /**
+     * Returns the 4th coordinate of this vector
+     */
+    getU() {
+        return this.n >= 4 ? this.get(3) : 0;
+    }
+
+    /**
      * Sets the i-th coordinate to the given v value
      * 
      * @param i 
@@ -228,12 +235,12 @@ class Vector {
     }
 
     /**
-     * Proyects the given vector using this one as
-     * the direction of the proyection line
+     * projects the given vector using this one as
+     * the direction of the projection line
      * 
      * @param v 
      */
-    proyect(v) {
+    project(v) {
         return this.copy().normalize().mult(this.dot(v));
     }
 
@@ -244,7 +251,7 @@ class Vector {
      * @param v 
      */
     reflect(v) {
-        let p = this.proyect(v);
+        let p = this.project(v);
         return p.mult(2).sub(v);
     }
 
@@ -296,6 +303,61 @@ class Vector {
     static random2D() {
         let r = random(2*PI);
         return Vector.fromAngle(r);
+    }
+
+    /**
+     * Rotates this vector (should be 3D)
+     * on the given axis by the given a radians
+     */
+    rotate3D(a, axis=0) {
+        let M = Matrix.identity(3);
+        switch(axis) {
+            case 0:
+                M.set(1,1,cos(a))
+                 .set(1,2,-sin(a))
+                 .set(2,1,sin(a))
+                 .set(2,2,cos(a));
+            break;
+            case 1:
+                M.set(0,0,cos(a))
+                 .set(2,0,-sin(a))
+                 .set(0,2,sin(a))
+                 .set(2,2,cos(a));
+            break;
+            case 2:
+                M.set(0,0,cos(a))
+                 .set(0,1,-sin(a))
+                 .set(1,0,sin(a))
+                 .set(1,1,cos(a));
+            break;
+        }
+        return new Vector(Matrix.mult(M, this.toMatrix()).col(0));
+    }
+
+    /**
+     * Rotate the given point p according to the given q1, q2 cuaternions
+     * 
+     * @param q1 4D vector - first quaternion of the rotation
+     * @param p  4D point  - to be rotated
+     * @param q2 4D vector - second quaternion of the rotation
+     */
+    static QuatRot(q1, p, q2) {
+        return Vector.QuatMult(Vector.QuatMult(q1, p), q2);
+    }
+
+    /**
+     * Return a new vector result of multiplying the given quaternions
+     * 
+     * @param q1 4D vector - first quaternion of the multiplication
+     * @param q2 4D vector - second quaternion of the multiplication
+     */
+    static QuatMult(q1, q2) {
+        q1 = q1.data;
+        q2 = q2.data;
+        return new Vector([q1[0]*q2[0] - q1[1]*q2[1] - q1[2]*q2[2] - q1[3]*q2[3], //u
+                           q1[0]*q2[1] + q1[1]*q2[0] + q1[2]*q2[3] - q1[3]*q2[2], //x
+                           q1[0]*q2[2] - q1[1]*q2[3] + q1[2]*q2[0] + q1[3]*q2[1], //y
+                           q1[0]*q2[3] + q1[1]*q2[2] - q1[2]*q2[1] + q1[3]*q2[0]]); //z        
     }
 
     /**
